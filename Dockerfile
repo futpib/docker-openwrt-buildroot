@@ -6,5 +6,5 @@ RUN apt-get update &&\
     apt-get clean &&\
     useradd -m openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt &&\
-    sudo -iu openwrt git clone git://git.openwrt.org/14.07/openwrt.git &&\
+    sudo -iu openwrt git clone https://github.com/openwrt/openwrt.git &&\
     sudo -iu openwrt openwrt/scripts/feeds update

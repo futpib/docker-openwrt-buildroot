@@ -1,10 +1,19 @@
-FROM ubuntu:14.10
+FROM ubuntu:xenial
 
-RUN apt-get update &&\
-    apt-get install -y git-core subversion build-essential gcc-multilib \
-                       libncurses5-dev zlib1g-dev gawk flex gettext wget unzip python &&\
-    apt-get clean &&\
-    useradd -m openwrt &&\
-    echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt &&\
-    sudo -iu openwrt git clone https://github.com/openwrt/openwrt.git &&\
-    sudo -iu openwrt openwrt/scripts/feeds update
+RUN set -e; \
+    apt-get update; \
+    apt-get install -y git-core \
+                       build-essential \
+                       libssl-dev \
+                       libncurses5-dev \
+                       unzip \
+                       wget \
+                       gawk \
+                       zlib1g-dev \
+                       subversion mercurial;
+
+RUN set -e; \
+    git clone https://github.com/openwrt/openwrt.git; \
+    cd openwrt; \
+    ./scripts/feeds update -a; \
+    ./scripts/feeds install -a;
